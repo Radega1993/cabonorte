@@ -10,8 +10,8 @@ export const useAuthStore = () => {
     const startLogin = async({ email, password}) => {
         dispatch( onChecking() )
         try {
-            const { data } = await cabonorteApi.post('/auth', {email, password})
-            localStorage.setItem('token', data.toker );
+            const { data } = await cabonorteApi.post('/auth', {email, password});
+            localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() );
             dispatch(onLogin({ name: data.name, uid: data.uid }) );
 
@@ -23,12 +23,11 @@ export const useAuthStore = () => {
         }
     }
 
-    const startRegister = async({ name, email, password}) => {
+    const startRegister = async({email, password, name}) => {
         dispatch( onChecking() )
         try {
-
-            const { data } = await cabonorteApi.post('/auth/new', {name, email, password})
-            localStorage.setItem('token', data.toker );
+            const { data } = await cabonorteApi.post('/auth/new', {email, password, name});
+            localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() );
             dispatch(onLogin({ name: data.name, uid: data.uid }) );
 
@@ -56,6 +55,11 @@ export const useAuthStore = () => {
         }
     }
 
+    const startLogout = () => {
+         localStorage.clear();
+        dispatch( onLogout());
+    }
+
     return {
         //propiedades
         status, 
@@ -65,7 +69,8 @@ export const useAuthStore = () => {
         //metodos
         startLogin,
         startRegister,
-        checkAuthToken
+        checkAuthToken,
+        startLogout,
 
     }
 }

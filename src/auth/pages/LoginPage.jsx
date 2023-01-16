@@ -1,9 +1,7 @@
-import './LoginPage.css';
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
-import { useMemo, useState } from 'react';
-import { useAuthStore, useForm } from '../../hooks';
 import { useEffect } from 'react';
+import Swal from 'sweetalert2';
+import { useAuthStore, useForm } from '../../hooks';
+import './LoginPage.css';
 
 const loginFormFields = {
     loginEmail: '',
@@ -18,15 +16,12 @@ const registerFormFields = {
 }
 
 
-
 export const LoginPage = () => {
 
     const { startLogin, errorMessage, startRegister } = useAuthStore()
 
     const { loginEmail, loginPassword, onInputChange:onLoginInputChange } = useForm(loginFormFields);
     const { registerName, registerEmail, registerPassword, registerPassword2, onInputChange:onRegisterInputChange } = useForm(registerFormFields);
-
-    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const loginSubmit = ( event ) => {
         event.preventDefault();
