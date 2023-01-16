@@ -1,47 +1,44 @@
-import Carousel from 'react-bootstrap/Carousel';
+import React, { useState, useEffect } from 'react';
 
-export const HeroImage = () => {
+export const HeroImage = (props) => {
+  
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [interval, setInterval] = useState(3000);
+
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex((currentImageIndex + 1) % props.images.length);
+    }, interval);
+    return () => clearInterval(intervalId);
+  }, [interval]);
+
+  const handlePrevClick = () => {
+    setCurrentImageIndex((currentImageIndex - 1 + props.images.length) % props.images.length);
+  };
+
+  const handleNextClick = () => {
+    setCurrentImageIndex((currentImageIndex + 1) % props.images.length);
+  };
 
   return (
 
-    <Carousel indicators={false}>
-        <Carousel.Item>
-            <img
-                className="d-block w-100"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(15).webp"
-                alt="First slide"
-            />
-            <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-            <img
-                className="d-block w-100"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp"
-                alt="Second slide"
-            />
-
-            <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-            <img
-                className="d-block w-100"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(23).webp"
-                alt="Third slide"
-            />
-
-            <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                </p>
-            </Carousel.Caption>
-        </Carousel.Item>
-    </Carousel>
-    );
+    <div id="heroImageSlider" className="carousel slide" data-ride="carousel" data-interval={interval}>
+      <div className="carousel-inner">
+        {props.images.map((image, index) => (
+          <div key={index} className={`carousel-item ${index === currentImageIndex ? 'active' : ''}`}>
+            <img src={image} className="w-100 h-50" alt="Hero Image" />
+          </div>
+        ))}
+      </div>
+      <a onClick={handlePrevClick} className="carousel-control-prev" href="#heroImageSlider" role="button" data-slide="prev">
+        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span className="sr-only">Anterior</span>
+      </a>
+      <a onClick={handleNextClick} className="carousel-control-next" href="#heroImageSlider" role="button" data-slide="next">
+        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        <span className="sr-only">Siguiente</span>
+      </a>
+    </div>
+  );
 }
