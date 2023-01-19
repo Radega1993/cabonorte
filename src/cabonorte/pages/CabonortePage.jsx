@@ -1,4 +1,4 @@
-import { Navbar, HeroImage, ProductosMain, FranjaMain, ListaProductos } from "../";
+import { Navbar, HeroImage, ProductosMain, ProductCards, ListaProductos } from "../";
 
 export const CabonortePage = () => {
   return (
@@ -8,6 +8,8 @@ export const CabonortePage = () => {
        <HeroImage />
 
       <ProductosMain />
+      
+      <ProductCards />
       {/*<ListaProductos />*/}
     </>
   )

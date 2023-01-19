@@ -44,3 +44,7 @@
   font-size: 1.5em;
   color: #567189;
 }
+
+.card-rounded {
+  border-radius: 10px;
+}
