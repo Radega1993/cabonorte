@@ -18,6 +18,6 @@ RUN npm run build
 # Handle Nginx
 FROM nginx:stable-alpine AS prod-stage
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 8100
 CMD ["nginx", "-g", "daemon off;"]
