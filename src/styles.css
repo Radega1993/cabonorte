@@ -48,3 +48,13 @@
 .card-rounded {
   border-radius: 10px;
 }
+
+.letra-home {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+}
+
+.contenedor-padre {
+  display: flex; /* esto permite utilizar align-items */
+  align-items: center; /* esto alinea los elementos dentro del contenedor al centro */
+}

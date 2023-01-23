@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export const ProductCards = () => {
-  const [products] = useState([
+
+  const { products } = useSelector( state => state.product );
+/*
+  const [producto] = useState([
     { id: 1, name: 'Puppy médium', image: 'product1.jpg' },
     { id: 2, name: 'Puppy Large', image: 'product2.jpg' },
     { id: 3, name: 'Adult Medium Pollo', image: 'product3.jpg' },
@@ -23,7 +27,7 @@ export const ProductCards = () => {
     { id: 19, name: 'diabetic', image: 'product17.jpg' },
     { id: 20, name: 'renal', image: 'product17.jpg' },
     { id: 21, name: 'urinary', image: 'product17.jpg' }
-  ]);
+  ]);*/
   
 
   
@@ -35,9 +39,10 @@ export const ProductCards = () => {
           <div key={product.id} className="col-6 col-md-4 mb-3">
             <div className={`card h-100 card-rounded`}>
               <div className="card-body">
-                <h5 className="card-title text-center">{product.name}</h5>
+                <h5 className="card-title text-center">{product.showname}</h5>
+                <h5 className="card-title text-center">{product.price} EUR</h5>
               </div>
-              <img src={`/assets/products/${product.image}`} className="card-img-top" alt={product.name}/>
+              <img src={`/productosMain/${product.imagenURL}`} className="card-img-top" alt={product.showname}/>
               <div className="card-body justify-content-between text-center">
                 <button className='btn btn-primary'>comprar</button>
                 &nbsp;
