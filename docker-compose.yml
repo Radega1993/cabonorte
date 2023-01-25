@@ -19,7 +19,7 @@ services:
       - traefik.frontend.redirect.replacement=https://cabonorte.paraanime.com$${1}
       - traefik.frontend.redirect.permanent=true
     networks:
-      - traefik-ok_default:
+      - traefik-ok_default
 networks:
   traefik-ok_default:
     external: true
