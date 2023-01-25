@@ -12,16 +12,14 @@ services:
       - traefik.enable=true
       - traefik.frontend.rule=Host:cabonorte.paraanime.com
       - traefik.port=80
-      - traefik.docker.network=web
-      #- traefik.docker.network=default
+      - traefik.docker.network=traefik-ok_default
       - traefik.frontend.protocol=http
       - traefik.frontend.entryPoints=http,https
+      - traefik.frontend.redirect.regex=^cabonorte.paraanime.com([/](.*))*
+      - traefik.frontend.redirect.replacement=https://cabonorte.paraanime.com$${1}
+      - traefik.frontend.redirect.permanent=true
     networks:
-      - web
-      #- default
-
+      - traefik-ok_default:
 networks:
-  #default:
-    #external: true
-  web:
+  traefik-ok_default:
     external: true
