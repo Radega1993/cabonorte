@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Navbar, HeroImage, ProductCards, ListaProductos } from "../";
+import { Navbar, HeroImage, ProductCards, Footer } from "../";
 import { useProductStore } from "../../hooks/useProductStore";
 import { InfoText } from "../components/InfoText";
 
@@ -17,11 +17,11 @@ export const CabonortePage = () => {
        <HeroImage />
 
        <InfoText />
-       
 
       
        <ProductCards />
-      {/*<ListaProductos />*/}
+      
+        <Footer />
     </>
   )
 }
