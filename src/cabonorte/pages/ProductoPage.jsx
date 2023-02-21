@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Navbar, HeroImage, ProductCards, Footer } from "../";
+import { Navbar, Footer } from "..";
 import { useProductStore } from "../../hooks/useProductStore";
-import { InfoText } from "../components/InfoText";
+import { ProductInfo } from "../components/InfoProducto/ProductInfo";
 
-export const CabonortePage = () => {
+export const ProductoPage = () => {
   const {startLoadProducts} = useProductStore();
 
   useEffect(() => {
@@ -14,11 +14,7 @@ export const CabonortePage = () => {
     <>
       <Navbar />
 
-      <HeroImage />
-
-      <InfoText />
-     
-      <ProductCards />
+      <ProductInfo />
       
       <Footer />
     </>

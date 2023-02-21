@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 
-import { LoginPage } from '../auth'
-import { CabonortePage } from '../cabonorte'
+import { LoginPage, RegisterPage } from '../auth'
+import { CabonortePage, ProductoPage } from '../cabonorte'
 import { useAuthStore } from "../hooks"
 
 export const AppRouter = () => {
@@ -26,7 +26,9 @@ export const AppRouter = () => {
             ? (
                 <>
                   <Route path="/" element={<CabonortePage />} />
-                  <Route path="/auth/*" element={<LoginPage />} />
+                  <Route path="/auth/login" element={<LoginPage />} />
+                  <Route path="/auth/register" element={<RegisterPage />} />
+                  <Route path="/product/:id" element={<ProductoPage />} />
                   <Route path="/*" element={<Navigate to="/auth/login" />} />
                 </>
               )

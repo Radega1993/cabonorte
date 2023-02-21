@@ -124,3 +124,9 @@
   font-size: 1rem;
   margin-bottom: 5px;
 }
+
+.image-info {
+  width: 50%;
+  height: auto;
+  max-width: 500px;
+}
