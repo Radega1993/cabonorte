@@ -26,15 +26,16 @@ export const AppRouter = () => {
             ? (
                 <>
                   <Route path="/" element={<CabonortePage />} />
+                  <Route path="/product/:id" element={<ProductoPage />} />
                   <Route path="/auth/login" element={<LoginPage />} />
                   <Route path="/auth/register" element={<RegisterPage />} />
-                  <Route path="/product/:id" element={<ProductoPage />} />
                   <Route path="/*" element={<Navigate to="/auth/login" />} />
                 </>
               )
             : (
               <>
                 <Route path="/" element={<CabonortePage />} />
+                <Route path="/product/:id" element={<ProductoPage />} />
                 <Route path="/*" element={<Navigate to="/" />} />
               </>
               )

@@ -29,11 +29,10 @@ export const ProductCards = () => {
     }
   }
 
-    const onMasInfo = (id) => {
-      navigate(`/product/${id}`);
-    }
+  const onMasInfo = (id) => {
+    navigate(`/product/${id}`);
+  }
     
-  
 
   return (
     <div className="container">
@@ -50,7 +49,7 @@ export const ProductCards = () => {
               <div className="card-body justify-content-between text-center">
                 <button onClick={onBuy} className='btn btn-primary'>Comprar</button>
                 &nbsp;
-                <button onClick={onMasInfo(product.id)} className='btn btn-warning'>Más información</button>
+                <button onClick={() => onMasInfo(product.id)} className='btn btn-warning'>Más información</button>
               </div>
             </div>
           </div>
