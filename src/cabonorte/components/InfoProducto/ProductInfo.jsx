@@ -38,41 +38,71 @@ export const ProductInfo = () => {
       }
 
     return (
-        <div className="my-3">
-            <img src={`/productosMain/${product.imagenURL}`} alt={product.name} className="image-info" />
-            <div className="card-body">
-                <h2 className="card-title">{product.name}</h2>
-                <p className="card-text">{product.showname}</p>
-                <p className="card-text">{product.description}</p>
-                <p className="card-text">{product.price} €</p>
-                <div className="row">
-                    <div className="col-md-6">
-                        <h3>Composición</h3>
-                        <ul>
-                            {product.composition.split(', ').map((item, index) => (
-                                <li key={index}>{item.trim()}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="col-md-6">
-                        <h3>Aditivos nutricionales</h3>
-                        <ul>
-                            {product.nutritionalAdditives.split(', ').map((item, index) => (
-                                <li key={index}>{item.trim()}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-                <h3>Componentes Analíticos</h3>
-                <ul>
-                    {product.analyticalComponents.split('; ').map((item, index) => (
-                        <li key={index}>{item.trim()}</li>
-                    ))}
-                </ul>
-                <button onClick={onBuy} className='btn btn-primary'>Comprar</button>
+      <div className="my-3 container">
+        <div className='row'>
+          <div className="col-md-6">
+            <div className="d-flex flex-column justify-content-center h-100">
+              <img src={`/productosMain/${product.imagenURL}`} alt={product.name} className="img-fluid" />
             </div>
+          </div>
+          <div className="col-md-6">
+            <div className="d-flex flex-column justify-content-center h-100">
+              <h2 className="card-title">{product.showname}</h2>
+              <p className="card-text">{product.name}</p>
+              <p className="card-text">{product.description}</p>
+              <p className="card-text">{product.price} €</p>
+              <div className="text-center mt-3">
+                <button onClick={onBuy} className='btn btn-primary'>Comprar</button>
+              </div>
+            </div>
+          </div>
         </div>
-    
+
+        <hr />
+        <div className="row">
+          <div className="col-md-4">
+            <h3 className="text-center">Composición</h3>
+            <table className="table table-striped">
+              <tbody>
+                {product.composition.split(', ').map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.trim()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="col-md-4">
+            <h3 className="text-center">Aditivos nutricionales</h3>
+            <table className="table table-striped">
+              <tbody>
+                {product.nutritionalAdditives.split(', ').map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.trim()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="col-md-4">
+            <h3 className="text-center">Componentes Analíticos</h3>
+            <table className="table table-striped">
+              <tbody>
+                {product.analyticalComponents.split('; ').map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.trim()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className='row'>
+          <strong>Antioxidantes: </strong>{product.antioxidentes}
+        </div>
+
+      </div>
         
     );
 };
