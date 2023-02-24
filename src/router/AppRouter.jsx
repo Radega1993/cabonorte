@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 
 import { LoginPage, RegisterPage } from '../auth'
-import { CabonortePage, ProductoPage } from '../cabonorte'
+import { CabonortePage, ProductoPage, BuyPage } from '../cabonorte'
 import { useAuthStore } from "../hooks"
 
 export const AppRouter = () => {
@@ -36,6 +36,7 @@ export const AppRouter = () => {
               <>
                 <Route path="/" element={<CabonortePage />} />
                 <Route path="/product/:id" element={<ProductoPage />} />
+                <Route path="buy/product/:id" element={<BuyPage />} />
                 <Route path="/*" element={<Navigate to="/" />} />
               </>
               )

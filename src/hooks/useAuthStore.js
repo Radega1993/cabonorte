@@ -11,6 +11,7 @@ export const useAuthStore = () => {
         dispatch( onChecking() )
         try {
             const { data } = await cabonorteApi.post('/auth', {email, password});
+            console.log(data);
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() );
             dispatch(onLogin({ name: data.name, uid: data.uid }) );
@@ -45,7 +46,7 @@ export const useAuthStore = () => {
 
         try {
             const { data } = await cabonorteApi.get('/auth/renew');
-            localStorage.setItem('token', data.toker );
+            localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() );
             dispatch(onLogin({ name: data.name, uid: data.uid }) );
         } catch (error) {

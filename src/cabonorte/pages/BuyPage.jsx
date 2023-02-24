@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { Navbar, Footer } from "../../ui";
+import { BuyForm } from "../";
 import { useProductStore } from "../../hooks/useProductStore";
-import { ProductInfo } from "../";
 
-export const ProductoPage = () => {
+export const BuyPage = () => {
   const {startLoadProducts} = useProductStore();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export const ProductoPage = () => {
     <>
       <Navbar />
 
-      <ProductInfo />
+      <BuyForm />
       
       <Footer />
     </>

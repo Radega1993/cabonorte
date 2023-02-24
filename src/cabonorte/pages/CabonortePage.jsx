@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { Navbar, HeroImage, ProductCards, Footer } from "../";
+import { HeroImage, ProductCards, InfoText } from "../";
+import { Navbar, Footer } from "../../ui";
 import { useProductStore } from "../../hooks/useProductStore";
-import { InfoText } from "../components/InfoText";
 
 export const CabonortePage = () => {
   const {startLoadProducts} = useProductStore();

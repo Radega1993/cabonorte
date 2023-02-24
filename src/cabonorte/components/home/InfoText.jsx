@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import perroportada from '../../assets/perroportada.jpg';
+import perroportada from '../../../assets/perroportada.jpg';
 
 export const InfoText = () => {
   const [title, setTitle] = useState('¡Bienvenido a Cabo Norte!');

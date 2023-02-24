@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import {onBuy} from "../../../helpers/onBuy"
 
 export const ProductInfo = () => {
     const { products } = useSelector( state => state.product );
@@ -10,27 +10,6 @@ export const ProductInfo = () => {
     const productId = location.pathname.split('/').pop();
 
     const product = products.find((element) => element.id === productId);
-
-    const onBuy = () => {
-        if (status === 'not-authenticated') {
-          Swal.fire({
-            title: 'Tienes que estar logeado para comprar',
-            showDenyButton: false,
-            showCancelButton: true,
-            confirmButtonText: 'Log in',
-            customClass: {
-              actions: 'my-actions',
-              cancelButton: 'order-1 right-gap',
-              confirmButton: 'order-2',
-            }
-          }).then((result) => {
-            if (result.isConfirmed) {
-              navigate('/auth/login');
-            }
-          })
-          
-        }
-      }
 
     
     if ( !product ) {
@@ -52,7 +31,7 @@ export const ProductInfo = () => {
               <p className="card-text">{product.description}</p>
               <p className="card-text">{product.price} €</p>
               <div className="text-center mt-3">
-                <button onClick={onBuy} className='btn btn-primary'>Comprar</button>
+                <button onClick={() => onBuy(status, navigate, productId)} className='btn btn-primary'>Comprar</button>
               </div>
             </div>
           </div>

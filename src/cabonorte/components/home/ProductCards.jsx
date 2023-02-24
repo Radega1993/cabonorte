@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2';
+import {onBuy} from "../../../helpers/onBuy"
 
 export const ProductCards = () => {
 
@@ -8,26 +8,6 @@ export const ProductCards = () => {
   const {status, user} = useSelector( state => state.auth );
   let navigate = useNavigate();
 
-  const onBuy = () => {
-    if (status === 'not-authenticated') {
-      Swal.fire({
-        title: 'Tienes que estar logeado para comprar',
-        showDenyButton: false,
-        showCancelButton: true,
-        confirmButtonText: 'Log in',
-        customClass: {
-          actions: 'my-actions',
-          cancelButton: 'order-1 right-gap',
-          confirmButton: 'order-2',
-        }
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate('/auth/login');
-        }
-      })
-      
-    }
-  }
 
   const onMasInfo = (id) => {
     navigate(`/product/${id}`);
@@ -47,7 +27,7 @@ export const ProductCards = () => {
               </div>
               <img src={`/productosMain/${product.imagenURL}`} className="card-img-top" alt={product.showname}/>
               <div className="card-body justify-content-between text-center">
-                <button onClick={onBuy} className='btn btn-primary'>Comprar</button>
+                <button onClick={() => onBuy(status, navigate, product.id)} className='btn btn-primary'>Comprar</button>
                 &nbsp;
                 <button onClick={() => onMasInfo(product.id)} className='btn btn-warning'>Más información</button>
               </div>
