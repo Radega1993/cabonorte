@@ -1,15 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useAuthStore, useForm } from '../../../hooks';
+import { useAuthStore } from '../../../hooks';
 
 
-const registerFormFields = {
-    name: '',
-    surname: '',
-    email: '',
-    password: '',
-    password2: '',
+
+const initialFormFields = {
     telefono: '',
     via: '',
     calle: '',
@@ -24,117 +21,66 @@ const registerFormFields = {
 
 export const BuyForm = () => {
 
-    const { errorMessage, startRegister } = useAuthStore()
-
-    const { 
-        name,
-        surname,
-        email,
-        password,
-        password2,
-        telefono,
-        via,
-        calle,
-        numero,
-        escalera,
-        planta,
-        puerta,
-        poblacion,
-        pais,
-        onInputChange:onRegisterInputChange 
-    } = useForm(registerFormFields);
-
-
-    const registerSubmit = ( event ) => {
-        event.preventDefault();
-        if (password !== password2 ) {
-            Swal.fire('Error en registro', 'Contraseñas no son iguales', 'error');
-            return;
-        }
-        startRegister({
-            name, 
-            surname, 
-            email, 
-            password, 
-            telefono,
-            via,
-            calle,
-            numero,
-            escalera,
-            planta,
-            puerta,
-            poblacion,
-            pais });
-    }
+    const { user, userInfo } = useSelector((state) => state.auth);
+    const { getUserInfo, errorMessage } = useAuthStore();
+    
+    const [formFields, setFormFields] = useState(initialFormFields);
+    const [loading, setLoading] = useState(true);
+    
 
     useEffect(() => {
-        if ( errorMessage !== undefined ) {
-            Swal.fire('Error en la autenticación', errorMessage, 'error')
-        } 
-    }, [errorMessage])
+        getUserInfo(user.uid);
+        setLoading(false);
+      }, []);
+      
+      useEffect(() => {
+        if (!loading) {
+          setFormFields(prevFields => ({
+            ...prevFields,
+            ...userInfo,
+          }));
+        }
+      }, [loading, userInfo]);
+  
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setFormFields((prevFields) => ({
+        ...prevFields,
+        [name]: value,
+      }));
+    };
+
+    const buySubmit = async (event) => {
+        event.preventDefault();
+        // Lógica de compra
+    };
     
     return (
         <div className="container login-container">
             <div className="row">
                 <div className="col login-form-2">
-                    <h3>Registro</h3>
-                    <form onSubmit={ registerSubmit }>
+                    <h3>Dirección envio</h3>
+                    <form onSubmit={ buySubmit }>
                         <div className="row">
                             <div className="col-md-6 form-group mb-2">
                                 <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Nombre"
-                                    name="name"
-                                    value={ name }
-                                    onChange={ onRegisterInputChange }
-                                />
-                            </div>
-
-                            <div className="col-md-6 form-group mb-2">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Apellido"
-                                    name="surname"
-                                    value={ surname }
-                                    onChange={ onRegisterInputChange }
-                                />
-                            </div>
-                        </div>
-                        <div className="form-group mb-2">
-                            <input
-                                type="email"
+                                type="text"
                                 className="form-control"
-                                placeholder="Correo"
-                                name="email"
-                                value={ email }
-                                onChange={ onRegisterInputChange }
-                            />
-                        </div>
-                        
-                        <div className="row">
-                            <div className="col-md-6 form-group mb-2">
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    placeholder="Contraseña" 
-                                    name="password"
-                                    value={ password }
-                                    onChange={ onRegisterInputChange }
+                                placeholder="Nombre" 
+                                name="name"
+                                value={ formFields.name }
+                                onChange={ handleInputChange }
                                 />
                             </div>
-
-
                             <div className="col-md-6 form-group mb-2">
                                 <input
-                                    type="password"
-                                    className="form-control"
-                                    placeholder="Repita la contraseña" 
-                                    name="password2"
-                                    value={ password2 }
-                                    onChange={ onRegisterInputChange }
-                                    />
+                                type="text"
+                                className="form-control"
+                                placeholder="Apellido" 
+                                name="surname"
+                                value={ formFields.surname }
+                                onChange={ handleInputChange }
+                                />
                             </div>
                         </div>
 
@@ -144,8 +90,8 @@ export const BuyForm = () => {
                                 className="form-control"
                                 placeholder="Telefono" 
                                 name="telefono"
-                                value={ telefono }
-                                onChange={ onRegisterInputChange }
+                                value={ formFields.telefono }
+                                onChange={ handleInputChange }
                             />
                         </div>
 
@@ -156,8 +102,8 @@ export const BuyForm = () => {
                                 className="form-control"
                                 placeholder="Tipo de via" 
                                 name="via"
-                                value={ via }
-                                onChange={ onRegisterInputChange }
+                                value={ formFields.via }
+                                onChange={ handleInputChange }
                                 />
                             </div>
                             <div className="col-md-6 form-group mb-2">
@@ -166,8 +112,8 @@ export const BuyForm = () => {
                                 className="form-control"
                                 placeholder="Calle" 
                                 name="calle"
-                                value={ calle }
-                                onChange={ onRegisterInputChange }
+                                value={ formFields.calle }
+                                onChange={ handleInputChange }
                                 />
                             </div>
                         </div>
@@ -179,8 +125,8 @@ export const BuyForm = () => {
                                 className="form-control"
                                 placeholder="Numero" 
                                 name="numero"
-                                value={ numero }
-                                onChange={ onRegisterInputChange }
+                                value={ formFields.numero }
+                                onChange={ handleInputChange }
                                 />
                             </div>
                             <div className="col-md-3 form-group mb-2">
@@ -189,8 +135,8 @@ export const BuyForm = () => {
                                 className="form-control"
                                 placeholder="Escalera" 
                                 name="escalera"
-                                value={ escalera }
-                                onChange={ onRegisterInputChange }
+                                value={ formFields.escalera }
+                                onChange={ handleInputChange }
                                 />
                             </div>
                             <div className="col-md-3 form-group mb-2">
@@ -199,8 +145,8 @@ export const BuyForm = () => {
                                 className="form-control"
                                 placeholder="Planta" 
                                 name="planta"
-                                value={ planta }
-                                onChange={ onRegisterInputChange }
+                                value={ formFields.planta }
+                                onChange={ handleInputChange }
                                 />
                             </div>
                             <div className="col-md-3 form-group mb-2">
@@ -209,8 +155,8 @@ export const BuyForm = () => {
                                 className="form-control"
                                 placeholder="Puerta" 
                                 name="puerta"
-                                value={ puerta }
-                                onChange={ onRegisterInputChange }
+                                value={ formFields.puerta }
+                                onChange={ handleInputChange }
                                 />
                             </div>
                         </div>
@@ -222,8 +168,8 @@ export const BuyForm = () => {
                                     className="form-control"
                                     placeholder="Población" 
                                     name="poblacion"
-                                    value={ poblacion }
-                                    onChange={ onRegisterInputChange }
+                                    value={ formFields.poblacion }
+                                    onChange={ handleInputChange }
                                 />
                             </div>
 
@@ -233,8 +179,8 @@ export const BuyForm = () => {
                                     className="form-control"
                                     placeholder="Pais" 
                                     name="pais"
-                                    value={ pais }
-                                    onChange={ onRegisterInputChange }
+                                    value={ formFields.pais }
+                                    onChange={ handleInputChange }
                                 />
                             </div>
                         </div>
@@ -243,15 +189,9 @@ export const BuyForm = () => {
                             <input 
                                 type="submit" 
                                 className="btnSubmit" 
-                                value="Crear cuenta" />
+                                value="Comprar" />
                         </div>
                         <div className="form-group text-center">
-                        <Link
-                            to="/auth/login"
-                            className="my-font link login__link"
-                        >
-                            Ya tengo usuario
-                        </Link>
                         <br/>
                         <Link
                             to="/"

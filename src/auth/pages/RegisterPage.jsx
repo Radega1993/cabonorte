@@ -53,6 +53,7 @@ export const RegisterPage = () => {
             Swal.fire('Error en registro', 'Contraseñas no son iguales', 'error');
             return;
         }
+
         startRegister({
             name, 
             surname, 

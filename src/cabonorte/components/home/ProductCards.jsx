@@ -27,9 +27,9 @@ export const ProductCards = () => {
               </div>
               <img src={`/productosMain/${product.imagenURL}`} className="card-img-top" alt={product.showname}/>
               <div className="card-body justify-content-between text-center">
-                <button onClick={() => onBuy(status, navigate, product.id)} className='btn btn-primary'>Comprar</button>
+                <button onClick={() => onBuy(status, navigate, product.id)} className='btn btn-primary mt-3'>Comprar</button>
                 &nbsp;
-                <button onClick={() => onMasInfo(product.id)} className='btn btn-warning'>Más información</button>
+                <button onClick={() => onMasInfo(product.id)} className='btn btn-warning mt-3'>Más información</button>
               </div>
             </div>
           </div>

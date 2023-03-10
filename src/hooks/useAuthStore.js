@@ -1,17 +1,16 @@
 import { useDispatch, useSelector } from "react-redux"
 import { cabonorteApi } from "../api"
-import { clearErrorMessage, onChecking, onLogin, onLogout } from '../store'
+import { clearErrorMessage, onChecking, onLogin, onLogout, onLoadUserInfo } from '../store'
 
 export const useAuthStore = () => {
 
-    const {status, user, errorMessage } = useSelector( state => state.auth )
+    const {status, user, userInfo, errorMessage } = useSelector( state => state.auth )
     const dispatch = useDispatch()
 
     const startLogin = async({ email, password}) => {
         dispatch( onChecking() )
         try {
             const { data } = await cabonorteApi.post('/auth', {email, password});
-            console.log(data);
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() );
             dispatch(onLogin({ name: data.name, uid: data.uid }) );
@@ -24,10 +23,38 @@ export const useAuthStore = () => {
         }
     }
 
-    const startRegister = async({email, password, name}) => {
+    const startRegister = async({
+        name, 
+        surname, 
+        email, 
+        password, 
+        telefono,
+        via,
+        calle,
+        numero,
+        escalera,
+        planta,
+        puerta,
+        poblacion,
+        pais
+    }) => {
         dispatch( onChecking() )
         try {
-            const { data } = await cabonorteApi.post('/auth/new', {email, password, name});
+            const { data } = await cabonorteApi.post('/auth/new', {
+                name, 
+                surname, 
+                email, 
+                password, 
+                telefono,
+                via,
+                calle,
+                numero,
+                escalera,
+                planta,
+                puerta,
+                poblacion,
+                pais
+            });
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() );
             dispatch(onLogin({ name: data.name, uid: data.uid }) );
@@ -56,6 +83,19 @@ export const useAuthStore = () => {
         }
     }
 
+    const getUserInfo = async( uid ) => {
+        try {
+            const {data}  = await cabonorteApi.get(`/auth/user/${uid}`);
+            const myUserInfo = data.usuario
+            dispatch(onLoadUserInfo(myUserInfo))
+        } catch (error) {
+           dispatch( onLogout('usuario no encontrado') );
+           setTimeout(() => {
+            dispatch( clearErrorMessage() );
+           }, 10);
+        }
+    }
+
     const startLogout = () => {
          localStorage.clear();
         dispatch( onLogout());
@@ -65,6 +105,7 @@ export const useAuthStore = () => {
         //propiedades
         status, 
         user, 
+        userInfo,
         errorMessage,
 
         //metodos
@@ -72,6 +113,7 @@ export const useAuthStore = () => {
         startRegister,
         checkAuthToken,
         startLogout,
+        getUserInfo
 
     }
 }
